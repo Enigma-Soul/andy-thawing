@@ -77,7 +77,7 @@ class GetCountingPhoto:
 
         if self.time_unit == "a":
             img = Image.new("RGBA",(420,60),(255,255,255,0))
-            font = ImageFont.truetype(self.font_path+r"\text.ttf", 60)
+            font = ImageFont.truetype(self.font_path+r"/text.ttf", 60)
             draw = ImageDraw.Draw(img)
             draw.text((0,0),"刘德华已解冻!!",font=font,fill=self.red)
             return img,img
@@ -85,7 +85,7 @@ class GetCountingPhoto:
 
         cn,en = self.get_unit_text()
         img = EW2_Count()
-        img.set_fonts(self.font_path+r"\text.ttf",self.font_path+r"\number.otf",self.font_path+r"\number.otf",50)
+        img.set_fonts(self.font_path+r"/text.ttf",self.font_path+r"/number.otf",self.font_path+r"/number.otf",50)
         img.set_text(("距刘德华解冻", "还剩"), ("ANDY LAU WILL THAW", f"IN {self.left_time} {en}"), self.left_time, cn)
 
         # 浅色版
