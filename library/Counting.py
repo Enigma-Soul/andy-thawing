@@ -1,4 +1,5 @@
 from datetime import datetime
+from os import path
 from .EW2_Count import *
 
 
@@ -85,7 +86,7 @@ class GetCountingPhoto:
 
         cn,en = self.get_unit_text()
         img = EW2_Count()
-        img.set_fonts(self.font_path+r"/text.ttf",self.font_path+r"/number.otf",self.font_path+r"/number.otf",50)
+        img.set_fonts(path.join(self.font_path,"text.ttf"),path.join(self.font_path,"number.otf"),path.join(self.font_path,"number.otf"),50)
         img.set_text(("距刘德华解冻", "还剩"), ("ANDY LAU WILL THAW", f"IN {self.left_time} {en}"), self.left_time, cn)
 
         # 浅色版
