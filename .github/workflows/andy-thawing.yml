@@ -1,0 +1,44 @@
+name: Andy Thawing
+
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  
+  
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        
+    - name: Install requirements
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Run main.py
+      run: python main.py
+      
+    - name: Commit and push output images
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        
+
+        git checkout --orphan output 2>/dev/null || git checkout output
+        
+        git rm -rf . 2>/dev/null || true
+        git add dark.png light.png
+
+        git commit -m "Auto-generated images at $(date -u)"
+        git push origin output --force
