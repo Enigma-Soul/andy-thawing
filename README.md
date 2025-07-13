@@ -1,7 +1,7 @@
 # andy-thawing 刘德华解冻倒计时
 ## 预览
-![light](https://raw.githubusercontent.com/Enigma_Soul/andy-thawing/output/light.png)
-![dark](https://raw.githubusercontent.com/Enigma_Soul/andy-thawing/output/dark.png)
+![light](https://raw.githubusercontent.com/Enigma-Soul/andy-thawing/output/light.png)
+![dark](https://raw.githubusercontent.com/Enigma-Soul/andy-thawing/output/dark.png)
 
 ## 使用方法
 建议:Fork后在自己仓库内进行
