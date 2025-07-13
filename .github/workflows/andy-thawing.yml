@@ -5,6 +5,10 @@ on:
     - cron: '0 0,6,12,18 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  
+  
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -27,17 +31,14 @@ jobs:
       
     - name: Commit and push output images
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         
-        git checkout output 2>/dev/null || git checkout --orphan output
+
+        git checkout --orphan output 2>/dev/null || git checkout output
         
+        git rm -rf . 2>/dev/null || true
         git add dark.png light.png
 
-
-        if git diff-index --quiet HEAD --; then
-          echo "No changes to commit"
-        else
-          git commit -m "Auto-generated images at $(date -u)"
-          git push origin output
-        fi
+        git commit -m "Auto-generated images at $(date -u)"
+        git push origin output --force
