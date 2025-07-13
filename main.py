@@ -43,7 +43,7 @@ def main():
     weight = 1000
     height = 600
 
-    counting = GetCountingPhoto(r".\fonts")
+    counting = GetCountingPhoto(r"fonts")
     counting.spring_festival = (2026, 2, 17)
     light_counting, dark_counting = counting.get_photo()
 
