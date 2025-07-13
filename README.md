@@ -23,9 +23,11 @@ main
 │   ├── text.ttf 中文字体
 │   └── 字体原名称.txt 字体原名称
 │
+│
 ├── img
 │   ├── ldh.png 刘德华图片
-│   ├── ice.png 冰块(不透明度70%)图片
+│   ├── ice.png 冰块(不透明度60%)图片
+│   └── bg_ice.png 冰块背景图片
 │
 └─library
     ├── Counting.py 倒计时计算
