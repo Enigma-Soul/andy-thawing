@@ -26,13 +26,19 @@ class GetIce:
         percent = self.get_percent()
 
         ice = Image.open(self.img_path+"/ice.png")
+        bg_ice = Image.open(self.img_path+"/bg_ice.png")
         ldh = Image.open(self.img_path+"/ldh.png")
         img = Image.new("RGBA", (ldh.width, ldh.height), (255, 255, 255,0))
-        img.paste(ldh, (0, 0), ldh)
+
         if percent > 0:
-            t = ice.height - int((ice.height - self.top - self.bottom) * percent + self.bottom + self.bottom)
-            cutted = ice.crop((0, t, ice.width, ice.height))
-            img.paste(cutted, (0,t), cutted)
+            h = ice.height - int((ice.height - self.top - self.bottom) * percent + self.bottom + self.bottom)
+            t = bg_ice.crop((0, h, bg_ice.width, bg_ice.height))
+            img.paste(t, (0,h), t)
+            img.paste(ldh, (0, 0), ldh)
+            t = ice.crop((0, h, ice.width, ice.height))
+            img.paste(t, (0, h), t)
+        else:
+            img.paste(ldh, (0, 0), ldh)
         return img
 
 
