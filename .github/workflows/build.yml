@@ -39,14 +39,14 @@ jobs:
           path: dist/andy-thawing
           retention-days: 90
 
-      - name: Commit executable to build branch
+      - name: Push executable to build branch
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git checkout --orphan build 2>/dev/null || git checkout build
-          git rm -rf . 2>/dev/null || true
+          git checkout --orphan build
+          git rm -rf . || true
           cp dist/andy-thawing andy-thawing
           git add andy-thawing
-          git commit -m "Build executable from $(echo $GITHUB_SHA | cut -c1-7) at $(date -u)"
+          git commit -m "Build from ${GITHUB_SHA:0:7} at $(date -u)"
           git push origin build --force
