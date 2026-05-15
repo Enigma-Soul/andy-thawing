@@ -1,8 +1,8 @@
 from PIL import Image
 
-from .config import IMAGE_WIDTH, IMAGE_HEIGHT
-from .counting import GetCountingPhoto
-from .ice import GetIce
+from andy_thawing.config import IMAGE_WIDTH, IMAGE_HEIGHT
+from andy_thawing.counting import GetCountingPhoto
+from andy_thawing.ice import GetIce
 
 
 def main():
