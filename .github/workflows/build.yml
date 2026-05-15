@@ -1,0 +1,54 @@
+name: Build Executable
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Build executable with PyInstaller
+        run: |
+          uv run pyinstaller --onefile \
+            --name andy-thawing \
+            --add-data "resources:resources" \
+            --hidden-import=PIL \
+            src/andy_thawing/__main__.py
+
+      - name: Upload executable as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: andy-thawing-linux
+          path: dist/andy-thawing
+          retention-days: 90
+
+      - name: Commit executable to build branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout --orphan build 2>/dev/null || git checkout build
+          git rm -rf . 2>/dev/null || true
+          cp dist/andy-thawing andy-thawing
+          git add andy-thawing
+          git commit -m "Build executable from $(echo $GITHUB_SHA | cut -c1-7) at $(date -u)"
+          git push origin build --force

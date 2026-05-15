@@ -1,0 +1,10 @@
+# 目标日期：2027年春节（2月6日）
+SPRING_FESTIVAL = (2027, 2, 6)
+
+# 输出图片尺寸
+IMAGE_WIDTH = 1000
+IMAGE_HEIGHT = 600
+
+# 冰块效果像素边距
+ICE_TOP_MARGIN = 10
+ICE_BOTTOM_MARGIN = 15
