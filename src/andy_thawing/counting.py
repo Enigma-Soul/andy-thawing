@@ -1,25 +1,23 @@
 from datetime import datetime
-from os import path
-from .EW2_Count import *
+
+from PIL import Image, ImageDraw, ImageFont
+
+from .config import SPRING_FESTIVAL
+from .ew2_count import EW2Count
+from .resources import font_path
 
 
 class GetCountingPhoto:
-    def __init__(self,font_path):
-        # 中文字体名为text.ttf
-        # 英文和数字的字体名为number.otf
-
+    def __init__(self):
         self.red = (231, 27, 2)
         self.white = (255, 255, 255)
         self.black = (0, 0, 0)
 
         self.time_unit = ""
         self.left_time = 0
-        self.font_path = font_path
-
-        self.spring_festival = (2026, 2, 17)
 
     def get_counting(self):
-        spring_festival = datetime(self.spring_festival[0], self.spring_festival[1], self.spring_festival[2])
+        spring_festival = datetime(*SPRING_FESTIVAL)
         now = datetime.now()
         left = spring_festival - now
 
@@ -51,6 +49,7 @@ class GetCountingPhoto:
             self.time_unit = "m"
             self.left_time = months
         return None
+
     def get_unit_text(self):
         cn = ""
         en = ""
@@ -67,7 +66,6 @@ class GetCountingPhoto:
             cn = "分"
             en = "MINUTES"
         else:
-            # 不可能的 ^_^
             cn = "已解冻"
             en = "THAWED"
 
@@ -77,31 +75,22 @@ class GetCountingPhoto:
         self.get_counting()
 
         if self.time_unit == "a":
-            img = Image.new("RGBA",(420,60),(255,255,255,0))
-            font = ImageFont.truetype(self.font_path+r"/text.ttf", 60)
+            img = Image.new("RGBA", (420, 60), (255, 255, 255, 0))
+            font = ImageFont.truetype(str(font_path("text.ttf")), 60)
             draw = ImageDraw.Draw(img)
-            draw.text((0,0),"刘德华已解冻!!",font=font,fill=self.red)
-            return img,img
+            draw.text((0, 0), "刘德华已解冻!!", font=font, fill=self.red)
+            return img, img
 
-
-        cn,en = self.get_unit_text()
-        img = EW2_Count()
-        img.set_fonts(path.join(self.font_path,"text.ttf"),path.join(self.font_path,"number.otf"),path.join(self.font_path,"number.otf"),50)
-        img.set_text(("距刘德华解冻", "还剩"), ("ANDY LAU WILL THAW", f"IN {self.left_time} {en}"), self.left_time, cn)
+        cn, en = self.get_unit_text()
+        ew2 = EW2Count()
+        ew2.set_fonts(str(font_path("text.ttf")), str(font_path("number.otf")), str(font_path("number.otf")), 50)
+        ew2.set_text(("距刘德华解冻", "还剩"), ("ANDY LAU WILL THAW", f"IN {self.left_time} {en}"), self.left_time, cn)
 
         # 浅色版
-        img.set_color(self.red, self.black)
-        light = img.draw()
+        ew2.set_color(self.red, self.black)
+        light = ew2.draw()
         # 深色版
-        img.set_color(self.red, self.white)
-        dark = img.draw()
+        ew2.set_color(self.red, self.white)
+        dark = ew2.draw()
 
-        return light,dark
-
-if __name__ == '__main__':
-    # 调用示例
-    img = GetCountingPhoto(r"..\fonts")
-    img.spring_festival = (2026, 2, 17)
-    light, dark = img.get_photo()
-    light.save("light.png")
-    dark.save("dark.png")
+        return light, dark

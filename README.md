@@ -11,25 +11,32 @@
 ![dark](https://raw.githubusercontent.com/<Your Name>/andy-thawing/output/dark.png#gh-dark-mode-only)
 ```
 
+### 本地开发
+需要安装 [uv](https://docs.astral.sh/uv/)
+
+```bash
+uv sync
+uv run python -m andy_thawing
+```
+
 ## 文件说明
-``` markdown
-main
-├─ main.py 主程序
-│  README.md 说明文档
-│  requirements.txt 要求文件
-│
-├─ fonts
-│   ├── number.otf 数字和英文字体
-│   ├── text.ttf 中文字体
-│   └── 字体原名称.txt 字体原名称
-│
-│
-├── img
-│   ├── ldh.png 刘德华图片
-│   ├── ice.png 冰块(不透明度60%)图片
-│   └── bg_ice.png 冰块背景图片
-│
-└─library
-    ├── Counting.py 倒计时计算
-    └── EW2_Count.py 流浪地球倒计时生成(不包括计算)
+```markdown
+andy-thawing/
+├── pyproject.toml           # uv 项目配置
+├── src/
+│   └── andy_thawing/        # Python 包
+│       ├── __init__.py      # 版本号
+│       ├── __main__.py      # 入口点
+│       ├── config.py        # 集中配置（日期、尺寸等）
+│       ├── resources.py     # 资源路径解析
+│       ├── ice.py           # 冰块效果
+│       ├── counting.py      # 倒计时计算与生成
+│       └── ew2_count.py     # 流浪地球风格渲染
+├── resources/               # 静态资源
+│   ├── fonts/               # 字体文件
+│   └── img/                 # 图片素材
+├── .github/workflows/
+│   ├── build.yml            # 合并到 main 自动打包
+│   └── daily.yml            # 每天定时生成图片
+└── README.md
 ```
