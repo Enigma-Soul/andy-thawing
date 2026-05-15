@@ -24,13 +24,13 @@ jobs:
       - name: Run executable to generate images
         run: ./andy-thawing
 
-      - name: Commit and push output images
+      - name: Push output images
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git checkout --orphan output 2>/dev/null || git checkout output
-          git rm -rf . 2>/dev/null || true
+          git checkout --orphan output
+          git rm -rf . || true
           git add dark.png light.png
-          git commit -m "Auto-generated images at $(date -u)"
+          git commit -m "Auto-generated at $(date -u)"
           git push origin output --force
