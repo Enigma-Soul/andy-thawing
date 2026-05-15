@@ -2,9 +2,9 @@ from datetime import datetime
 
 from PIL import Image, ImageDraw, ImageFont
 
-from .config import SPRING_FESTIVAL
-from .ew2_count import EW2Count
-from .resources import font_path
+from andy_thawing.config import SPRING_FESTIVAL
+from andy_thawing.ew2_count import EW2Count
+from andy_thawing.resources import font_path
 
 
 class GetCountingPhoto:

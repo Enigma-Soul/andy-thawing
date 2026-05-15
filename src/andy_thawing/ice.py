@@ -2,8 +2,8 @@ from datetime import datetime
 
 from PIL import Image
 
-from .config import SPRING_FESTIVAL, ICE_TOP_MARGIN, ICE_BOTTOM_MARGIN
-from .resources import img_path
+from andy_thawing.config import SPRING_FESTIVAL, ICE_TOP_MARGIN, ICE_BOTTOM_MARGIN
+from andy_thawing.resources import img_path
 
 
 class GetIce:
